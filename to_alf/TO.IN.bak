@@ -1,0 +1,12 @@
+1000          
+0.00001
+0.45       
+0.07
+1  
+3.6
+vg_n 3.5 
+bc_lambda 5.5   
+bc_psib 0.37
+layer_top_depth 0.0  
+layer_bottom_depth 1.50
+buf_alloc 100

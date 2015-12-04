@@ -402,7 +402,7 @@ int main(void)
       double water_table           = layer_bottom_depth;      // Meters.
       
       double current_time          = 0.0;                                                     // Current time in seconds.
-      double delta_time            = 60;                                                     // The duration of the timestep in seconds.
+      double delta_time            = 3600;                                                     // The duration of the timestep in seconds.
       double max_time              = 100 * ONE_HOUR;                                         // How long to run the simulation in seconds.
       double runoff,frate,rech;
       
@@ -452,7 +452,7 @@ int main(void)
       initial_water_content = 0.1;      // Unitless fraction.
       water_table           = 1*layer_bottom_depth;      // Meters.
       
-      delta_time            = 1;                                                     // The duration of the timestep in seconds.
+      delta_time            = 600;                                                     // The duration of the timestep in seconds.
       max_time              = 72 * ONE_HOUR;                                         // How long to run the simulation in seconds.
     }
   else if ( 2 == test_id)
