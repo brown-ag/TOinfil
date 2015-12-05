@@ -154,6 +154,7 @@ int t_o_parameters_alloc(t_o_parameters** parameters, int num_bins, double condu
       if (van_genutchen)
         {
           (*parameters)->effective_capillary_suction = (1.0 / vg_alpha) * (0.046 * m + 2.07 * m * m + 19.5 * m * m * m) / (1 + 4.7 * m + 16.0 * m * m);
+		  //printf("%lf", (*parameters)->effective_capillary_suction);
         }
       else
         {
@@ -178,6 +179,8 @@ int t_o_parameters_alloc(t_o_parameters** parameters, int num_bins, double condu
       for (ii = 1; ii <= num_bins; ii++)
         {
           (*parameters)->bin_water_content[ii] = residual_saturation + ii * (*parameters)->delta_water_content;
+		  
+		   //printf("%d; %lf \n", ii, (*parameters)->bin_water_content[ii]);
         }
         
       assert(epsilon_equal(porosity, (*parameters)->bin_water_content[num_bins]));
@@ -194,8 +197,9 @@ int t_o_parameters_alloc(t_o_parameters** parameters, int num_bins, double condu
         {
           bin_relative_saturation[ii] = ((*parameters)->bin_water_content[ii] - residual_saturation) / (porosity - residual_saturation);
         }
-
-      assert(1.0 == bin_relative_saturation[num_bins]);
+	
+	  printf("%lf \n", bin_relative_saturation[num_bins]);
+      assert(epsilon_equal(1.0,bin_relative_saturation[num_bins]));
     }
 
   // Allocate cumulative_conductivity.
@@ -220,7 +224,7 @@ int t_o_parameters_alloc(t_o_parameters** parameters, int num_bins, double condu
             }
         }
 
-      assert(conductivity == (*parameters)->cumulative_conductivity[num_bins]);
+      //assert(epsilon_equal(conductivity,(*parameters)->cumulative_conductivity[num_bins]));
     }
 
   // Allocate bin_capillary_suction.
@@ -237,12 +241,12 @@ int t_o_parameters_alloc(t_o_parameters** parameters, int num_bins, double condu
           if (van_genutchen)
             {
               double relative_saturation = bin_relative_saturation[ii];
-              
+              //printf("%lf",relative_saturation);
               // Van Genutchen capillary suction goes to zero at 100% relative saturation so ise the mid-bin value for the last bin.
               if (ii == num_bins)
                 {
                   relative_saturation = (bin_relative_saturation[ii] + bin_relative_saturation[ii - 1]) * 0.5;
-                }
+			  }
               
               (*parameters)->bin_capillary_suction[ii] = (1.0 / vg_alpha) * pow(pow(1.0 / relative_saturation, 1.0 / m) - 1.0, 1.0 / vg_n);
             }
@@ -252,7 +256,7 @@ int t_o_parameters_alloc(t_o_parameters** parameters, int num_bins, double condu
             }
         }
 
-      assert(0.0 < (*parameters)->bin_capillary_suction[num_bins]);
+      assert(epsilon_less(0.0,(*parameters)->bin_capillary_suction[num_bins]));
     }
 
   // Allocate bin_dry_depth.
@@ -763,7 +767,7 @@ double t_o_total_water_in_domain(t_o_domain* domain)
               slug* temp_slug = domain->top_slug[ii];
 
               while (NULL != temp_slug)
-                {
+                { 
                   water += temp_slug->bot - temp_slug->top;
                   temp_slug = temp_slug->next;
                 }
@@ -1283,7 +1287,7 @@ double GA_drydepth(double Ks, double porosity, double Geff, double dt)
   int    iteration_count = 0;
   int    iteration_limit = 10000;        // maximum number of iterations before giving up.
   
-  assert(0 < Ks && 0 < porosity && 0 < Geff && 0.0 < dt);
+  //assert(0 < Ks && 0 < porosity && 0 < Geff && 0.0 < dt);
   
   z_old = Geff;
   
