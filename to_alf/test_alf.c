@@ -415,7 +415,7 @@ double initial_water_content = pow(1/pow((vg_alpha*initial_tension_top/100),vg_n
           PET           = potential_ET[ii];                  // m/s.      ##################################### Set no PET.
           rainfall_rate = rainfall_input_intensity[ii];      // m/s.
           rainfall      = rainfall_rate * delta_time;        // Meters of water.
-      	  printf("Rainfall %lf\n",rainfall);
+      	  //printf("Rainfall %lf\n",rainfall);
 	  }
       //printf("Add %lf \n",rainfall);
 	  surfacewater_depth  += rainfall;
@@ -448,14 +448,16 @@ double initial_water_content = pow(1/pow((vg_alpha*initial_tension_top/100),vg_n
 	  
       infiltration_rate    = (surfacewater_depth_old - surfacewater_depth) / delta_time * 100.0 * ONE_HOUR; // cm/hr.
       groundwater_inf_rate = (groundwater_recharge - groundwater_recharge_old) / delta_time * 100 * ONE_HOUR; // cm/hr.
-      fprintf(f_fptr, "%lf %lf %lf %lf %lf %lf %lf %lf \n", current_time, rainfall_rate * 360000.0, accu_rain * 100, infiltration_rate, accum_infil * 100.0,
-                                                            groundwater_inf_rate, groundwater_recharge * 100.0, evaporated_water * 100.0);
+      //fprintf(f_fptr, "%lf %lf %lf %lf %lf %lf %lf %lf \n", current_time, rainfall_rate * 360000.0, accu_rain * 100, infiltration_rate, accum_infil * 100.0,
+      //                                                     groundwater_inf_rate, groundwater_recharge * 100.0, evaporated_water * 100.0);
 
 	  double frate, rech;
       frate = (surfacewater_depth_old - surfacewater_depth) / delta_time * 100.0 * ONE_HOUR; // cm/hr.
       rech  = (groundwater_recharge - groundwater_recharge_old) / delta_time * 100.0 * ONE_HOUR; // cm/hr.
-      printf("%lf %lf %lf %lf %lf \n", current_time/86400, rainfall_rate * 360000.0, frate, rech, surfacewater_depth);
-  
+      //printf("%lf %lf %lf %lf %lf \n", current_time/86400, rainfall_rate * 360000.0, frate, rech, surfacewater_depth);
+  	  if(surfacewater_depth > 0) {
+		  	printf("%lf",surfacewater_depth);
+	  }
       current_time += delta_time;
       
       if(yes_runoff)  // new FLO 21 Dec. 2014 

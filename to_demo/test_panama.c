@@ -24,7 +24,7 @@ extern int t_o_domains_equal(t_o_domain* domain1, t_o_domain* domain2);
 #define ONE_MINUTE    (60.0)
 #define ONE_HOUR      (60.0 * ONE_MINUTE)
 #define ONE_DAY       (24.0 * ONE_HOUR)
-#define YES_PLOT      
+//#define YES_PLOT      
 
 void display_water(Display* the_display, Pixmap the_pixmap, GC the_gc, t_o_domain* domain, int bin, double top, double bot)
 {
@@ -354,7 +354,7 @@ int main(void)
 
   Font font;
  // if((font=XLoadFont(the_display,"-adobe-helvetica-bold-r-*-*-14-100-*-*-p-*-*-*"))==None)
-  if((font=XLoadFont(the_display,"-bitstream-charter-bold-i-normal--12-120-75-75-p-74-iso8859-1"))==None)
+  if((font=XLoadFont(the_display,"-bitstream-bitstream charter-bold-i-normal--0-0-0-0-p-0-iso10646-1"))==None)
     {
     printf("Cannot load font: timb18\n");
     //FIXME  should die here.
